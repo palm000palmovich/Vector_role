@@ -1,0 +1,10 @@
+# Managed by Ansible - manual changes will be overwritten
+data_dir: {{ vector_data_dir }}
+
+api:
+  enabled: false
+
+sources:
+{{ vector_sources | to_nice_yaml(indent=2) | indent(2, first=True) }}
+sinks:
+{{ vector_sinks | to_nice_yaml(indent=2) | indent(2, first=True) }}

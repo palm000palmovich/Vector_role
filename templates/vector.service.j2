@@ -1,0 +1,17 @@
+[Unit]
+Description=Vector - observability data pipeline
+Documentation=https://vector.dev/docs/
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User={{ vector_user }}
+Group={{ vector_group }}
+ExecStart={{ vector_binary_path }} --config {{ vector_config_path }}
+Restart=on-failure
+RestartSec=5
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

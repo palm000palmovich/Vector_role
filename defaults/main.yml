@@ -1,0 +1,40 @@
+# SPDX-License-Identifier: MIT-0
+---
+# defaults file for vector
+# High-level knobs a user of this role is expected to override.
+
+vector_version: "0.41.1"
+vector_arch: x86_64-unknown-linux-musl
+vector_download_url: "https://packages.timber.io/vector/{{ vector_version }}/vector-{{ vector_version }}-{{ vector_arch }}.tar.gz"
+
+vector_install_dir: /opt/vector
+vector_config_dir: /etc/vector
+vector_data_dir: /var/lib/vector
+
+vector_user: vector
+vector_group: vector
+
+# Vector's pipeline is fully data-driven: these dicts are dumped as-is into
+# the `sources:` / `sinks:` sections of vector.yaml. Override them (e.g. from
+# group_vars/vector.yml in the consuming playbook) to point at a real
+# ClickHouse endpoint instead of localhost.
+vector_sources:
+  host_metrics:
+    type: host_metrics
+    collectors:
+      - cpu
+      - disk
+      - filesystem
+      - load
+      - memory
+      - network
+
+vector_sinks:
+  clickhouse:
+    type: clickhouse
+    inputs:
+      - host_metrics
+    endpoint: "http://localhost:8123"
+    database: default
+    table: vector_metrics
+    skip_unknown_fields: true

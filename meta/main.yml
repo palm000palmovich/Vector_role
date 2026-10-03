@@ -1,0 +1,26 @@
+# SPDX-License-Identifier: MIT-0
+galaxy_info:
+  author: palm000palmovich
+  description: Install and configure Vector (vector.dev) to collect host metrics and ship them to ClickHouse
+  license: MIT
+
+  min_ansible_version: "2.9"
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - focal
+        - jammy
+        - noble
+    - name: Debian
+      versions:
+        - bullseye
+        - bookworm
+
+  galaxy_tags:
+    - vector
+    - observability
+    - metrics
+    - clickhouse
+
+dependencies: []
